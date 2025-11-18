@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 #include "Toolkits/AssetEditorToolkit.h"
+#include "AssetTypeCategories.h"
 
 class FAssetTypeActions_Base;
 struct FGraphPanelNodeFactory;

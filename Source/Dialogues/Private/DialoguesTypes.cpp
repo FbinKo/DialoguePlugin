@@ -1,4 +1,5 @@
 #include "DialoguesTypes.h"
+#include "DialoguesComponent.h"
 
 FString FDialogueMessage::ToString() const
 {

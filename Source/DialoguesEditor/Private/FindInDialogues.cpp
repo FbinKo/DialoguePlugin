@@ -1,5 +1,6 @@
 #include "FindInDialogues.h"
 #include "DialoguesEditor.h"
+#include "DialoguesGraphNode.h"
 #include "Widgets/Input/SSearchBox.h"
 
 #define LOCTEXT_NAMESPACE "FindInDialogues"
@@ -105,35 +106,34 @@ void SFindInDialogues::Construct(const FArguments& InArgs, TSharedPtr<class FDia
 	this->ChildSlot
 		[
 			SNew(SVerticalBox)
+				+ SVerticalBox::Slot()
+				.AutoHeight()
+				[
+					SNew(SHorizontalBox)
+						+ SHorizontalBox::Slot()
+						.FillWidth(1)
+						[
+							SAssignNew(SearchTextField, SSearchBox)
+								.HintText(LOCTEXT("DialoguesSearchHint", "Enter text to find nodes..."))
+								.OnTextChanged(this, &SFindInDialogues::OnSearchTextChanged)
+								.OnTextCommitted(this, &SFindInDialogues::OnSearchTextCommitted)
+						]
+				]
 			+ SVerticalBox::Slot()
-		.AutoHeight()
-		[
-			SNew(SHorizontalBox)
-			+ SHorizontalBox::Slot()
-		.FillWidth(1)
-		[
-			SAssignNew(SearchTextField, SSearchBox)
-			.HintText(LOCTEXT("DialoguesSearchHint", "Enter text to find nodes..."))
-		.OnTextChanged(this, &SFindInDialogues::OnSearchTextChanged)
-		.OnTextCommitted(this, &SFindInDialogues::OnSearchTextCommitted)
-		]
-		]
-	+ SVerticalBox::Slot()
-		.FillHeight(1.0f)
-		.Padding(0.f, 4.f, 0.f, 0.f)
-		[
-			SNew(SBorder)
-			.BorderImage(FAppStyle::GetBrush("Menu.Background"))
-		[
-			SAssignNew(TreeView, STreeViewType)
-			.ItemHeight(24)
-		.TreeItemsSource(&ItemsFound)
-		.OnGenerateRow(this, &SFindInDialogues::OnGenerateRow)
-		.OnGetChildren(this, &SFindInDialogues::OnGetChildren)
-		.OnSelectionChanged(this, &SFindInDialogues::OnTreeSelectionChanged)
-		.SelectionMode(ESelectionMode::Multi)
-		]
-		]
+				.FillHeight(1.0f)
+				.Padding(0.f, 4.f, 0.f, 0.f)
+				[
+					SNew(SBorder)
+						.BorderImage(FAppStyle::GetBrush("Menu.Background"))
+						[
+							SAssignNew(TreeView, STreeViewType)
+								.TreeItemsSource(&ItemsFound)
+								.OnGenerateRow(this, &SFindInDialogues::OnGenerateRow)
+								.OnGetChildren(this, &SFindInDialogues::OnGetChildren)
+								.OnSelectionChanged(this, &SFindInDialogues::OnTreeSelectionChanged)
+								.SelectionMode(ESelectionMode::Multi)
+						]
+				]
 		];
 }
 
@@ -177,47 +177,47 @@ TSharedRef<ITableRow> SFindInDialogues::OnGenerateRow(FSearchResult InItem, cons
 	return SNew(STableRow< TSharedPtr<FFindInDialoguesResult> >, OwnerTable)
 		[
 			SNew(SHorizontalBox)
+				+ SHorizontalBox::Slot()
+				.VAlign(VAlign_Center)
+				.AutoWidth()
+				[
+					SNew(SBox)
+						.WidthOverride(450.0f)
+						[
+							SNew(SHorizontalBox)
+								+ SHorizontalBox::Slot()
+								.AutoWidth()
+								[
+									InItem->CreateIcon()
+								]
+								+ SHorizontalBox::Slot()
+								.VAlign(VAlign_Center)
+								.AutoWidth()
+								.Padding(2, 0)
+								[
+									SNew(STextBlock)
+										.Text(FText::FromString(InItem->Value))
+										.HighlightText(HighlightText)
+								]
+						]
+				]
 			+ SHorizontalBox::Slot()
-		.VAlign(VAlign_Center)
-		.AutoWidth()
-		[
-			SNew(SBox)
-			.WidthOverride(450.0f)
-		[
-			SNew(SHorizontalBox)
-			+ SHorizontalBox::Slot()
-		.AutoWidth()
-		[
-			InItem->CreateIcon()
-		]
-	+ SHorizontalBox::Slot()
-		.VAlign(VAlign_Center)
-		.AutoWidth()
-		.Padding(2, 0)
-		[
-			SNew(STextBlock)
-			.Text(FText::FromString(InItem->Value))
-		.HighlightText(HighlightText)
-		]
-		]
-		]
-	+ SHorizontalBox::Slot()
-		.AutoWidth()
-		.VAlign(VAlign_Center)
-		[
-			SNew(STextBlock)
-			.Text(FText::FromString(InItem->GetNodeTypeText()))
-		.HighlightText(HighlightText)
-		]
-	+ SHorizontalBox::Slot()
-		.HAlign(HAlign_Right)
-		.VAlign(VAlign_Center)
-		[
-			SNew(STextBlock)
-			.Text(FText::FromString(InItem->GetCommentText()))
-		.ColorAndOpacity(FLinearColor::Yellow)
-		.HighlightText(HighlightText)
-		]
+				.AutoWidth()
+				.VAlign(VAlign_Center)
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString(InItem->GetNodeTypeText()))
+						.HighlightText(HighlightText)
+				]
+				+ SHorizontalBox::Slot()
+				.HAlign(HAlign_Right)
+				.VAlign(VAlign_Center)
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString(InItem->GetCommentText()))
+						.ColorAndOpacity(FLinearColor::Yellow)
+						.HighlightText(HighlightText)
+				]
 		];
 }
 

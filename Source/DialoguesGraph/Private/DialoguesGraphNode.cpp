@@ -1,5 +1,6 @@
 #include "DialoguesGraphNode.h"
 #include "Dialogues.h"
+#include "DialoguesGraph.h"
 #include "DialogueNode.h"
 #include "DialoguesGraphTypes.h"
 #include "SGraphNode_DialoguesGraph.h"

@@ -1,9 +1,10 @@
 #pragma once
 
+#include "GameplayTagContainer.h"
 #include "DialoguesTypes.generated.h"
 
 class UDialogueNode_Step;
-class UDialogueComponent;
+class UDialoguesComponent;
 
 UENUM(BlueprintType)
 enum class ERequirementResult : uint8
@@ -264,7 +265,7 @@ public:
 	float Duration = 3.f;
 
 public:
-	virtual void OnInstanceCreated(UDialogueComponent* Component) const {}
+	virtual void OnInstanceCreated(UDialoguesComponent* Component) const {}
 	virtual FString ToString() const { return ""; }
 	virtual float GetDuration() const { return Duration; }
 };

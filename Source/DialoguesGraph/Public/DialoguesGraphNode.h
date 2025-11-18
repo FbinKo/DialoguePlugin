@@ -15,6 +15,7 @@
 class UEdGraph;
 class UEdGraphSchema;
 class UObject;
+class UDialoguesGraph;
 template <typename T> struct TObjectPtr;
 
 UCLASS()

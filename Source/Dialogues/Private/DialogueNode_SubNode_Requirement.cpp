@@ -1,4 +1,5 @@
 #include "DialogueNode_SubNode_Requirement.h"
+#include "DialoguesTypes.h"
 
 UDialogueNode_SubNode_Requirement::UDialogueNode_SubNode_Requirement(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {

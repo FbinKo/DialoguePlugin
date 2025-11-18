@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "DialoguesTypes.h"
 #include "DialogueOptionWidget.generated.h"
 
 class UButton;
