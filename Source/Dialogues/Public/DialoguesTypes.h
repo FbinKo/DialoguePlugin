@@ -223,7 +223,7 @@ struct DIALOGUES_API FDialogueOption
 
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	ERequirementResult Access;
+	ERequirementResult Access = ERequirementResult::Passed;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<UDialogueNode_Step> NextStep;
@@ -246,7 +246,7 @@ public:
 	TArray<FDialogueParticipant> Participants;
 
 	UPROPERTY(BlueprintReadWrite)
-	UDialogueNode_Step* CurrentNode;
+	TObjectPtr<UDialogueNode_Step> CurrentNode;
 
 	UPROPERTY(BlueprintReadWrite)
 	TArray<FDialogueOption> Options;
